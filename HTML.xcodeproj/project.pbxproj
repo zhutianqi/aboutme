@@ -10,6 +10,7 @@
 		EFE7E5631EBED86800620F92 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		EFE7E5641EBED91000620F92 /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		EFE7E5651EBEEA9D00620F92 /* blog.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = blog.html; sourceTree = "<group>"; };
+		EFEE70961EDC0751007E9BFE /* snakes.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = snakes.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -19,6 +20,7 @@
 				EFE7E5631EBED86800620F92 /* index.html */,
 				EFE7E5641EBED91000620F92 /* style.css */,
 				EFE7E5651EBEEA9D00620F92 /* blog.html */,
+				EFEE70961EDC0751007E9BFE /* snakes.html */,
 			);
 			sourceTree = "<group>";
 		};
