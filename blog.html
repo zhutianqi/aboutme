@@ -28,5 +28,68 @@
          <p><img src="images/IMG_1577.JPG" alt"BBQ Chicken" class="blogImage" style="width:432px;height:792px;"/>
          </p>
         
+         <h3>9/08/17 LeetCode 113</h3>
+         <p>This problem is really interesting about the time. I write two solutions one is recursion and one is backtracking. The intuitive idea of backtracking generated from 1.time consideration 2.pass by reference is quicker than pass by value. Here is the code.<br/>
+         
+         Backtracking:
+         <pre class='brush: cpp'>
+             void help(TreeNode* root,const int& sum,vector<vector<int>>& result,vector<int>& path)
+             {
+             
+             if(!root)
+             return;
+             
+             path.push_back(root->val);
+             
+             if(root->left==NULL&&root->right==NULL&&root->val==sum)
+             {
+             result.push_back(path);
+             }
+             
+             help(root->left, sum-root->val, result, path);
+             help(root->right, sum-root->val, result, path);
+             path.pop_back();
+             }
+             
+             vector<vector<int>> pathSum(TreeNode* root, int sum)
+                 {
+                 
+                 vector<vector<int>> result;
+                     vector<int> path;
+                         help(root, sum, result, path);
+                         return result;
+                         }
+         </pre>
+         Pass by value:
+         <pre class='brush: cpp'>
+             void help(TreeNode* root,int sum,int count,vector<vector<int>>& result,vector<int> path)
+                 {
+                 
+                 if(!root)
+                 return;
+                 
+                 count+=root->val;
+                 path.push_back(root->val);
+                 
+                 if(root->left==NULL&&root->right==NULL&&count==sum)
+                 {
+                 result.push_back(path);
+                 return;
+                 }
+                 
+                 
+                 help(root->left, sum, count, result, path);
+                 help(root->right, sum, count, result, path);
+                 }
+                 
+                 vector<vector<int>> pathSum(TreeNode* root, int sum)
+                 {
+                    vector<vector<int>> result;
+                    vector<int> path;
+                    help(root, sum, 0, result, path);
+                    return result;
+                }
+        </pre></p>
+        
     </body>
 </html>
