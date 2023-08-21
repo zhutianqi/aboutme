@@ -40,8 +40,11 @@
     
         audio.addEventListener("play", () => {
             console.log("Play event triggered");
-            // 显示歌词
             lyricsDiv.style.display = "block";
+        });
+
+        audio.addEventListener("pause", () => {
+            lyricsDiv.style.display = "none";
         });
       </script>
     </body>
