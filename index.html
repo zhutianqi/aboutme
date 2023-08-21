@@ -4,17 +4,6 @@
 
 <html>
     <body>
-      <script>
-        const audio = document.getElementById("audio");
-        const lyricsDiv = document.getElementById("lyrics");
-    
-        audio.addEventListener("play", () => {
-            console.log("Play event triggered");
-            // 显示歌词
-            lyricsDiv.style.display = "block";
-        });
-      </script>
-
       <p>"letter" by SHE'S</p>
       <audio controls autoplay>
           <source src="musics/letter.mp3" type="audio/mpeg">
@@ -45,6 +34,16 @@
         </p>
       </div>
   
+      <script>
+        const audio = document.getElementById("audio");
+        const lyricsDiv = document.getElementById("lyrics");
+    
+        audio.addEventListener("play", () => {
+            console.log("Play event triggered");
+            // 显示歌词
+            lyricsDiv.style.display = "block";
+        });
+      </script>
     </body>
 
     <head>
