@@ -9,6 +9,38 @@
           <source src="musics/letter.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
       </audio>
+
+      <div id="lyrics">
+        <p>
+          僕らは信じたい人から順番に，<br>
+
+          我们一个一个逐渐对信赖之人，<br>
+          
+          疑ってしまっては，<br>
+          
+          产生怀疑，<br>
+          
+          自分を嫌っていく，<br>
+          
+          逐渐讨厌自己，<br>
+          
+          それでも触れたくて，<br>
+          
+          但即使这样还是想要触碰，<br>
+          
+          心の奥へ歩み寄る，<br>
+          
+          并且慢慢走近你内心深处。
+        </p>
+      </div>
+
+    <script>
+        const audio = document.getElementById("audio");
+        const lyricsDiv = document.getElementById("lyrics");
+        audio.addEventListener("play", () => {
+            lyricsDiv.style.display = "block";
+        });
+    </script>
     </body>
 
     <head>
