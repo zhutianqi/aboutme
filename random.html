@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>随机数生成器</title>
+    <style>
+        /* 自定义样式 */
+        button {
+            padding: 10px 20px; /* 调整按钮内边距来增加尺寸 */
+            font-size: 16px; /* 调整字体大小 */
+        }
+
+        input {
+            padding: 10px; /* 调整输入框内边距来增加尺寸 */
+            font-size: 16px; /* 调整字体大小 */
+        }
+    </style>
+    <script>
+        function generateRandomNumber() {
+            var maxNumber = parseInt(document.getElementById("maxNumber").value);
+            var randomNumber = Math.floor(Math.random() * maxNumber);
+            document.getElementById("result").textContent = "随机数: " + randomNumber;
+        }
+    </script>
+</head>
+<body>
+    <h1>随机数生成器</h1>
+    <label for="maxNumber">请输入一个数字：</label>
+    <input type="number" id="maxNumber" min="1">
+    <button onclick="generateRandomNumber()">生成随机数</button>
+    <p id="result"></p>
+</body>
+</html>
