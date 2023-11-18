@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Encrypted Page</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <p>Encrypted File</p>
+    <input type="file" id="fileInput">
+    <button onclick="readFileContent()">Read File</button>
+
+  <p>Encrypted Page</p>
+  <button onclick="decryptFile()">Decrypt File</button>
+
+  <script>
+    const filePath = 'original.html';
+    function readFileContent() {
+      var fileInput = document.getElementById('fileInput');
+      var file = fileInput.files[0]; // 获取用户选择的文件
+
+      var reader = new FileReader();
+
+      reader.onload = function(event) {
+        var fileContent = event.target.result; // 获取文件内容
+        console.log("Loaded content from file:", fileContent);
+        alert("Content loaded from file:\n\n" + fileContent);
+        var encryptedContent = encryptFile(fileContent);
+        download(encryptedContent);
+        decryptFile(encryptedContent);
+      };
+
+      reader.onerror = function(event) {
+        console.error("Error loading file:", event.target.error);
+        alert("Error loading file!");
+      };
+
+      reader.readAsText(file); // 读取文件内容为文本
+    }
+
+
+    var secretKey = "YourSecretKey"; // 用于加密和解密的密钥，可以替换为您自己的密钥
+//     var originalContent = `<!DOCTYPE html>
+// <html>
+//   <body>
+//     <p>Welcome</p>
+//   </body>
+// </html>`;
+//    var encryptedContent = "U2FsdGVkX1/zAJJYZRwectPnRh16mdNFm6Zok4I5l00c4P1h+D6CIY7h/PgSK86WiaX0+Sr20aCPId19kh3Od1KBzenS6GUnnE1WZDOaBweW+QO0JPIckG075fp+bHGqZ6jxvGKZFe8yFfISgElT4g==";
+
+    function encryptFile(originalContent) {
+      encryptedContent = CryptoJS.AES.encrypt(originalContent, secretKey).toString();
+      console.log("Encrypted Content:", encryptedContent);
+      alert("File Encrypted!");
+      return encryptedContent;
+    }
+
+    function decryptFile(encryptedContent) {
+      var decrypted = CryptoJS.AES.decrypt(encryptedContent, secretKey).toString(CryptoJS.enc.Utf8);
+      console.log("Decrypted Content:", decrypted);
+      openDecryptedContentInNewPage(decrypted);
+    }
+
+    function openDecryptedContentInNewPage(decryptedContent) {
+        // 创建一个新窗口或标签页
+        var newWindow = window.open();
+        
+        // 将解密后的内容作为新页面的内容加载到新窗口中
+        newWindow.document.write(decryptedContent);
+    }
+
+    function download(encryptedContent) {
+      var blob = new Blob([encryptedContent], { type: 'text/plain' });
+      // 创建URL对象
+      var url = window.URL.createObjectURL(blob);
+
+      // 创建一个下载链接
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'encrypted-content.txt'; // 设置文件名
+      document.body.appendChild(a);
+      a.click(); // 模拟点击下载链接
+
+      // 清理资源
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
