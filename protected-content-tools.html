@@ -17,8 +17,12 @@
 </head>
 
 <body>
-  
-  <img src="images/Dango-Daikazoku.png" onclick="decryptFixedEncryptedContent()" alt="点我">
+  <p>Encrypt File</p>
+  <input type="file" id="fileInput">
+  <button onclick="readAndEncryptFileContent()">Read File</button>
+
+  <p>Decrypt File</p>
+  <button onclick="decryptFixedEncryptedContent()">Decrypt File</button>
 
   <script src="common.js"></script>
   <script>
