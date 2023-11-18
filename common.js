@@ -1,10 +1,10 @@
 var storedEncryptedPassword = "c13256c816ad91d87bb3ffeb0ddbb32536f7097620a752bc7616a390b93771b9";
 
-var secretKey = "YourSecretKey"; // 用于加密和解密的密钥，可以替换为您自己的密钥
+var secretKey = "obviously, no secrect"; // 用于加密和解密的密钥，可以替换为您自己的密钥
 
 async function calculateSHA256(input) {
     // 例子
-    // calculateSHA256("?????????????")
+    // calculateSHA256("password")
     // .then(hash => {
     //     console.log('SHA-256 哈希值:', hash);
     // })
@@ -34,6 +34,29 @@ function checkPassword() {
         } else {
             console.log(encryptedEnteredPassword);
             alert('不对，而且没有提示!      --Tom Noob');
+        }
+    }).catch(error => {
+        console.error('发生错误:', error);
+    });
+}
+
+function checkPasswordOnLoad() {
+    var password = prompt('Enter Password:');
+    var enteredPassword = password;
+
+    var encryptedEnteredPassword;
+    calculateSHA256(enteredPassword).then(result => {
+        console.log('异步操作完成:', result);
+        encryptedEnteredPassword = result;
+        // 请替换为您预先加密并存储的密码（这是极其不安全的示例）
+        console.log('SHA-256 哈希值:', encryptedEnteredPassword);
+        if (encryptedEnteredPassword === storedEncryptedPassword) {
+            secretKey = password;
+            alert('你知道了密码，但是我从来不用这个密码存钱!      --Tom Noob');
+        } else {
+            console.log(encryptedEnteredPassword);
+            alert('不对，而且没有提示!      --Tom Noob');
+            window.location.href = 'about:blank'; // 重定向到一个空白页面或其他页面
         }
     }).catch(error => {
         console.error('发生错误:', error);
