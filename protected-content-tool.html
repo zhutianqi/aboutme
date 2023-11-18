@@ -7,14 +7,14 @@
 <body>
     <p>Encrypted File</p>
     <input type="file" id="fileInput">
-    <button onclick="readFileContent()">Read File</button>
+    <button onclick="readAndEncryptFileContent()">Read File</button>
 
   <p>Encrypted Page</p>
-  <button onclick="decryptFile()">Decrypt File</button>
+  <button onclick="decryptFixedEncryptedContent()">Decrypt File</button>
 
   <script>
     const filePath = 'original.html';
-    async function readFileContent() {
+    async function readAndEncryptFileContent() {
       var fileInput = document.getElementById('fileInput');
       var file = fileInput.files[0]; // 获取用户选择的文件
 
@@ -55,6 +55,7 @@
     }
 
     async function decryptFile(encryptedContent) {
+      console.log("Encrypted Content:", encryptedContent);
       var decrypted = CryptoJS.AES.decrypt(encryptedContent, secretKey).toString(CryptoJS.enc.Utf8);
       console.log("Decrypted Content:", decrypted);
       openDecryptedContentInNewPage(decrypted);
@@ -85,7 +86,7 @@
       window.URL.revokeObjectURL(url);
     }
 
-    const fileURL = 'https://raw.githubusercontent.com/zhutianqi/aboutme/master/encrypted-content';
+    
 
     async function fetchFileContent(fileURL) {
       try {
@@ -100,6 +101,23 @@
         console.error('Error fetching the file:', error);
         return null;
       }
+    }
+
+    async function decryptFixedEncryptedContent() {
+      const fileURL = 'https://raw.githubusercontent.com/zhutianqi/aboutme/master/encrypted-content';
+      try {
+        // const encryptedContent = await fetchFileContent(fileURL);
+        const encryptedContent = "U2FsdGVkX19NW1LWKuY+JQ0AX5yjKfTXgU09Z42Y+xtDuNCfmcFnFE4zRFL116TuJzd2Smf7mRqLjRAvr9ngKD7mOT+0TGqs00/uJBCuYTVbjdyucKX5hUSonGHSqz9v";
+        if (encryptedContent) {
+          decryptFile(encryptedContent);
+
+        } else {
+          console.error('Could not fetch the encrypted content.');
+        }
+      } catch (error) {
+        console.error('Error decrypting the file:', error);
+      }
+
     }
   </script>
 </body>
