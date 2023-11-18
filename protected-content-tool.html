@@ -14,7 +14,7 @@
 
   <script>
     const filePath = 'original.html';
-    function readFileContent() {
+    async function readFileContent() {
       var fileInput = document.getElementById('fileInput');
       var file = fileInput.files[0]; // 获取用户选择的文件
 
@@ -47,20 +47,20 @@
 // </html>`;
 //    var encryptedContent = "U2FsdGVkX1/zAJJYZRwectPnRh16mdNFm6Zok4I5l00c4P1h+D6CIY7h/PgSK86WiaX0+Sr20aCPId19kh3Od1KBzenS6GUnnE1WZDOaBweW+QO0JPIckG075fp+bHGqZ6jxvGKZFe8yFfISgElT4g==";
 
-    function encryptFile(originalContent) {
+    async function encryptFile(originalContent) {
       encryptedContent = CryptoJS.AES.encrypt(originalContent, secretKey).toString();
       console.log("Encrypted Content:", encryptedContent);
       alert("File Encrypted!");
       return encryptedContent;
     }
 
-    function decryptFile(encryptedContent) {
+    async function decryptFile(encryptedContent) {
       var decrypted = CryptoJS.AES.decrypt(encryptedContent, secretKey).toString(CryptoJS.enc.Utf8);
       console.log("Decrypted Content:", decrypted);
       openDecryptedContentInNewPage(decrypted);
     }
 
-    function openDecryptedContentInNewPage(decryptedContent) {
+    async function openDecryptedContentInNewPage(decryptedContent) {
         // 创建一个新窗口或标签页
         var newWindow = window.open();
         
@@ -68,7 +68,7 @@
         newWindow.document.write(decryptedContent);
     }
 
-    function download(encryptedContent) {
+    async function download(encryptedContent) {
       var blob = new Blob([encryptedContent], { type: 'text/plain' });
       // 创建URL对象
       var url = window.URL.createObjectURL(blob);
@@ -83,6 +83,23 @@
       // 清理资源
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
+    }
+
+    const fileURL = 'https://raw.githubusercontent.com/zhutianqi/aboutme/master/encrypted-content';
+
+    async function fetchFileContent(fileURL) {
+      try {
+        const response = await fetch(fileURL);
+        if (response.ok) {
+          const fileContent = await response.text();
+          return fileContent;
+        } else {
+          throw new Error('Failed to fetch the file.');
+        }
+      } catch (error) {
+        console.error('Error fetching the file:', error);
+        return null;
+      }
     }
   </script>
 </body>
