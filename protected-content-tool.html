@@ -1,124 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Encrypted Page</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
-<body>
-    <p>Encrypted File</p>
-    <input type="file" id="fileInput">
-    <button onclick="readAndEncryptFileContent()">Read File</button>
 
-  <p>Encrypted Page</p>
+<body>
+  <p>Encrypt File</p>
+  <input type="file" id="fileInput">
+  <button onclick="readAndEncryptFileContent()">Read File</button>
+
+  <p>Decrypt Fixed File</p>
   <button onclick="decryptFixedEncryptedContent()">Decrypt File</button>
 
+  <script src="common.js"></script>
   <script>
-    const filePath = 'original.html';
-    async function readAndEncryptFileContent() {
-      var fileInput = document.getElementById('fileInput');
-      var file = fileInput.files[0]; // 获取用户选择的文件
-
-      var reader = new FileReader();
-
-      reader.onload = function(event) {
-        var fileContent = event.target.result; // 获取文件内容
-        console.log("Loaded content from file:", fileContent);
-        alert("Content loaded from file:\n\n" + fileContent);
-        var encryptedContent = encryptFile(fileContent);
-        download(encryptedContent);
-        decryptFile(encryptedContent);
-      };
-
-      reader.onerror = function(event) {
-        console.error("Error loading file:", event.target.error);
-        alert("Error loading file!");
-      };
-
-      reader.readAsText(file); // 读取文件内容为文本
-    }
-
-
-    var secretKey = "YourSecretKey"; // 用于加密和解密的密钥，可以替换为您自己的密钥
-//     var originalContent = `<!DOCTYPE html>
-// <html>
-//   <body>
-//     <p>Welcome</p>
-//   </body>
-// </html>`;
-//    var encryptedContent = "U2FsdGVkX1/zAJJYZRwectPnRh16mdNFm6Zok4I5l00c4P1h+D6CIY7h/PgSK86WiaX0+Sr20aCPId19kh3Od1KBzenS6GUnnE1WZDOaBweW+QO0JPIckG075fp+bHGqZ6jxvGKZFe8yFfISgElT4g==";
-
-    async function encryptFile(originalContent) {
-      encryptedContent = CryptoJS.AES.encrypt(originalContent, secretKey).toString();
-      console.log("Encrypted Content:", encryptedContent);
-      alert("File Encrypted!");
-      return encryptedContent;
-    }
-
-    async function decryptFile(encryptedContent) {
-      console.log("Encrypted Content:", encryptedContent);
-      var decrypted = CryptoJS.AES.decrypt(encryptedContent, secretKey).toString(CryptoJS.enc.Utf8);
-      console.log("Decrypted Content:", decrypted);
-      openDecryptedContentInNewPage(decrypted);
-    }
-
-    async function openDecryptedContentInNewPage(decryptedContent) {
-        // 创建一个新窗口或标签页
-        var newWindow = window.open();
-        
-        // 将解密后的内容作为新页面的内容加载到新窗口中
-        newWindow.document.write(decryptedContent);
-    }
-
-    async function download(encryptedContent) {
-      var blob = new Blob([encryptedContent], { type: 'text/plain' });
-      // 创建URL对象
-      var url = window.URL.createObjectURL(blob);
-
-      // 创建一个下载链接
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = 'encrypted-content.txt'; // 设置文件名
-      document.body.appendChild(a);
-      a.click(); // 模拟点击下载链接
-
-      // 清理资源
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }
-
-    
-
-    async function fetchFileContent(fileURL) {
-      try {
-        const response = await fetch(fileURL);
-        if (response.ok) {
-          const fileContent = await response.text();
-          return fileContent;
-        } else {
-          throw new Error('Failed to fetch the file.');
-        }
-      } catch (error) {
-        console.error('Error fetching the file:', error);
-        return null;
-      }
-    }
-
-    async function decryptFixedEncryptedContent() {
-      const fileURL = 'https://raw.githubusercontent.com/zhutianqi/aboutme/master/encrypted-content';
-      try {
-        // const encryptedContent = await fetchFileContent(fileURL);
-        const encryptedContent = "U2FsdGVkX19NW1LWKuY+JQ0AX5yjKfTXgU09Z42Y+xtDuNCfmcFnFE4zRFL116TuJzd2Smf7mRqLjRAvr9ngKD7mOT+0TGqs00/uJBCuYTVbjdyucKX5hUSonGHSqz9v";
-        if (encryptedContent) {
-          decryptFile(encryptedContent);
-
-        } else {
-          console.error('Could not fetch the encrypted content.');
-        }
-      } catch (error) {
-        console.error('Error decrypting the file:', error);
-      }
-
-    }
   </script>
 </body>
+
 </html>
