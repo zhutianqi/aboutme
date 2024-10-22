@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Calculator</title>
+</head>
+<body>
+    <h1>Online Calculator</h1>
+
+    <!-- 输入框 -->
+    <input type="text" id="expression" placeholder="Enter a simple expression like '3 + 5'" />
+
+    <!-- 计算按钮 -->
+    <button id="calculateButton" disabled>Calculate</button>
+
+    <!-- 显示结果 -->
+    <p>Result: <span id="result"></span></p>
+
+    <!-- 加载 WebAssembly 模块 -->
+    <script src="cpp/calculator.js"></script>
+
+    <!-- WebAssembly 加载后运行 -->
+    <script>
+        Module().then(function(moduleInstance) {
+            console.log('WebAssembly Loaded');
+
+            // 启用计算按钮
+            document.getElementById('calculateButton').disabled = false;
+
+            // 计算函数
+            function calculate() {
+                const expression = document.getElementById('expression').value;
+
+                // 将 JavaScript 字符串转换为 WebAssembly 可用的 UTF-8
+                const expressionPtr = moduleInstance.allocateUTF8(expression);
+
+                // 调用 WebAssembly 计算函数
+                const result = moduleInstance._calculate(expressionPtr);
+
+                // 显示结果
+                document.getElementById('result').innerText = result;
+
+                // 释放内存
+                moduleInstance._free(expressionPtr);
+            }
+
+            // 绑定计算按钮
+            document.getElementById('calculateButton').addEventListener('click', calculate);
+        });
+    </script>
+</body>
+</html>
