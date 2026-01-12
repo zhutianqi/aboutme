@@ -1,0 +1,10 @@
+Dec 3
+加权 classification怎么工作的，问题就是比如这个分类是分层的，如何惩罚远距离
+Classification can get much more complicated than just binary or multiclass classification. 
+For instance, there are some variants of classification addressing hierarchically structured classes. 
+In such cases not all errors are equal—if we must err, we might prefer to misclassify to a related class rather than a distant class.
+ Usually, this is referred to as hierarchical classification. For inspiration, you might think of Linnaeus, who organized fauna in a hierarchy.
+
+In the case of animal classification, it might not be so bad to mistake a poodle for a schnauzer, but our model would pay a huge penalty if it confused a poodle with a dinosaur.
+ Which hierarchy is relevant might depend on how you plan to use the model. For example, rattlesnakes and garter snakes might be close on the phylogenetic tree, but mistaking a rattler 
+ for a garter could have fatal consequences.
